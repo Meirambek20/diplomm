@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>Шифрлау әдістері</title>
+  <style>
+    /* ---- БАЗАЛЫҚ СТИЛЬ ---- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+      background: #6762d9;
+      background: linear-gradient(90deg, rgba(103, 98, 217, 1) 0%, rgba(92, 92, 250, 1) 40%, rgba(0, 212, 255, 1) 100%);
+      padding:24px;
+    }
+    h1{margin-bottom:24px;text-align:center}
+
+    /* ---- КАРТОЧКА СЕТКАСЫ ---- */
+    .card-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    /* ---- КАРТОЧКА ---- */
+    .card{
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,.12);
+      padding:20px;
+      cursor:pointer;
+      transition:transform .25s ease;
+      position:relative;   /* layout-қа әсер етпей hover-scale жасау үшін  */
+      overflow:hidden;
+      min-height:160px;
+    }
+    .card:hover{transform:scale(1.04)}
+    .card h3{font-size:20px;margin-bottom:8px}
+    .card p{font-size:14px;color:#555;line-height:1.35}
+
+    /* ---- МОДАЛ ---- */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      visibility:hidden;
+      opacity:0;
+      transition:opacity .3s ease;
+      z-index:1000;
+    }
+    .modal.open{visibility:visible;opacity:1}
+    .modal-card{
+      background:#fff;
+      border-radius:16px;
+      padding:32px;
+      width:min(500px,90%);
+      max-height:90vh;
+      overflow-y:auto;
+      box-shadow:0 8px 20px rgba(0,0,0,.25);
+      animation:pop .3s ease;
+    }
+    @keyframes pop{from{transform:scale(.8)}to{transform:scale(1)}}
+    .modal-card h2{margin-bottom:12px}
+    .modal-card p{margin-bottom:10px;color:#444;line-height:1.45}
+    .close-btn{
+      position:absolute;
+      top:12px;right:16px;
+      background:none;border:none;font-size:28px;cursor:pointer;
+      color:#888;
+    }
+    .close-btn:hover{color:#333}
+      .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #4f46e5; /* көкшіл түс */
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2000;
+    transition: background 0.2s ease;
+  }
+
+  .back-button:hover {
+    background-color: #4338ca; /* hover түсі */
+  }
+  </style>
+</head>
+<body>
+
+<h1>Шифрлау әдістері</h1>
+<div class="card-container" id="cards"></div>
+
+<!-- ---- МОДАЛ ---- -->
+<div class="modal" id="modal">
+  <div class="modal-card" id="modalContent">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+  </div>
+</div>
+    <button class="back-button" onclick="history.back()">← Артқа</button>
+<script>
+  /* ----- Шифрлар деректері ----- */
+  const ciphers = [
+    /* 1–6: бастапқы айтылғандары */
+    {name:"Цезарь шифры",
+      short:"Қарапайым ауыстыру шифры.",
+      full:"Цезарь шифры әр әріпті алфавит бойынша белгіленген қадамға жылжытады. Мысалы, 3 қадам: A→D, B→E. Сәйкесінше шифрды бұзу үшін барлық 25 қадамды байқап көру жеткілікті."},
+    {name:"Виженер шифры",
+      short:"Кілттік ауыстыру шифры.",
+      full:"Виженер шифры – бірнеше Цезарь шифрының тізбегі. Әр позициядағы жылжу мөлшері кілт сөзімен анықталады: ашық мәтін әрпі + кілт әрпі = шифр мәтін әрпі."},
+    {name:"Гронсфелд шифры",
+      short:"Сандарға негізделген Виженер.",
+      full:"Гронсфелд шифры Виженерге ұқсамай ма? Ұқсайды, бірақ кілт әріптердің орнына цифрлардан тұрады. Цифр – жылжу саны. Мәселен, кілт 31415 болса, 1‑әріп 3 орын, 2‑әріп 1 орын т.с.с."},
+    {name:"Морзе коды",
+      short:"Нүкте‑сызықша әліпбиі.",
+      full:"Морзе – телеграфқа арналған код. Әр әріп . (нүкте) және – (сызықша) тізбегімен беріледі: A = .‑ , B = ‑… , C = ‑.‑. Мәтін дыбыстық, жарықтық, радиосигнал арқылы жіберіледі."},
+    {name:"Трисемус шифры",
+      short:"Кілттік кестелік ауыстыру.",
+      full:"Трисемус (Trithemius) шифры – кілт сөзінен 26‑символдық кесте құрып, ашық мәтін әрпін сол кестеде бір қатар төмен орналасқан әріпке ауыстырады."},
+    {name:"Атбаш шифры",
+      short:"Алфавитті кері жазу.",
+      full:"Ерте еврей мәтіндерінен шыққан Атбаш шифрында A↔Z, B↔Y, C↔X т.с. жеке‑жеке орын алмасады. Қарапайым әрі тарихи әдіс."},
+
+    /* 7–15: қосылған 9 шифр */
+    {name:"Плейфер шифры",
+      short:"Digraph (қос әріп) шифры.",
+      full:"Плейфер 5×5 кесте қолданады. Кілт сөзі жазылады, қалған әріптер толтырылып, J‑мен I біріктіріледі. Мәтін жұп‑жұп боп шифрланады: егер бір жұп бір жолда болса, әрқайсысы оңға, бағанда болса – төмен."},
+    {name:"Rail Fence (Теміржол)",
+      short:"Транспозициялық зигзаг шифры.",
+      full:"Мәтін бірнеше «рельске» зигзагпен жазылады. Кілт – рельс саны. Оқылуы жолдар бойынша, солайша символ реті ауысады. Бұзу үшін рельс санын табу керек."},
+    {name:"Полибий квадраты",
+      short:"Координатпен шифрлау.",
+      full:"5×5 кестеде әріптер орналасады (I/J біріктіріледі). Әр әріп өз координатымен (жол, бағана) беріледі: A=11, B=12… Y/Z=55. Сандармен берілетіндігі радиокодтауға қолайлы."},
+    {name:"RSA шифры",
+      short:"Ашық кілтті криптография.",
+      full:"RSA екі үлкен жай саннан (p, q) және модуль n=pq құрады. Ашық (e, n) және жабық (d, n) кілт жасалады. Қауіпсіздігі – үлкен сандарды жәй көбейткішке жіктеу қиындығына негізделген."},
+    {name:"Hill шифры",
+      short:"Матрица көбейту шифры.",
+      full:"Мәтін вектор ретінде алынады (A=0…Z=25). Кілт – n×n инверсияланатын матрица. Шифрлау: C = K·P mod 26. Қате коррекциясы қиын болғандықтан практикалық қолданысы шектеулі."},
+    {name:"XOR шифры",
+      short:"Биттік қақтас шифр.",
+      full:"Ашық мәтіннің әр биті кілт битімен XOR (⊕) операциясы арқылы қосылады. Егер кілт кездейсоқ және бір реттік болса (OTP), теориялық тұрғыда бұзылмайды."},
+    {name:"Base64 кодтау",
+      short:"Мәліметті ASCII‑ге түрлендіру.",
+      full:"Base64 – шифр емес, бірақ дерек тасымалдауда жиі қолданылады. 24 биттік үш байт 6‑биттік төрт символға бөлініп, [A–Z, a–z, 0–9, +, /] алфавитімен беріледі."},
+    {name:"Скитал (Scytale)",
+      short:"Ежелгі грек транспозициясы.",
+      full:"Әскер басшысы таяқшаға (скиталға) таспа орап, мәтінді бойлай жазады. Таспа шешілгенде символдар араласып кетеді. Шифрды оқу үшін дәл сондай диаметрлі скитал керек."},
+    {name:"ROT13 шифры",
+      short:"Алфавитті 13 орынға жылжыту.",
+      full:"ROT13 – Цезарь шифрының арнайы жағдайы: 26 әріптік ағылшын алфавитін 13 орынға ығыстырады. Екі рет қолдансаң, бастапқы мәтінге оралады (өзін‑өзі кері шифрлайды)." }
+  ];
+
+  /* ----- Карточкаларды генерациялау ----- */
+  const cardsDiv = document.getElementById("cards");
+  ciphers.forEach(c => {
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML = `<h3>${c.name}</h3><p>${c.short}</p>`;
+    el.addEventListener("click", () => openModal(c.name, c.full));
+    cardsDiv.appendChild(el);
+  });
+
+  /* ----- Модал логикасы ----- */
+  const modal      = document.getElementById("modal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalText  = document.getElementById("modalText");
+  function openModal(title, text){
+    modalTitle.textContent = title;
+    modalText.textContent  = text;
+    modal.classList.add("open");
+  }
+  function closeModal(){ modal.classList.remove("open"); }
+  modal.addEventListener("click", e=>{
+    if(e.target === modal) closeModal();   /* қара фонды басқанда да жабылсын */
+  });
+</script>
+
+</body>
+</html>

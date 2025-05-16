@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Translator | Морзе Код Переводчик | Морзе Код Көшірмеші</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Css/C4.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-selector">
+                <button class="language-btn" onclick="changeLanguage('kk')" id="kk-btn">Қазақша</button>
+                <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">Русский</button>
+                <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">English</button>
+            </div>
+            <h1 id="title">Morse Code Translator</h1>
+        </div>
+        
+        <div class="input-group">
+            <label for="input-text" id="input-label">Text:</label>
+            <textarea id="input-text" spellcheck="false"></textarea>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="toMorse()" id="to-morse-btn" class="action-btn to-morse-btn">
+                <i class="fas fa-arrow-right"></i>
+                <span id="to-morse-btn-text">To Morse</span>
+            </button>
+            <button onclick="fromMorse()" id="from-morse-btn" class="action-btn from-morse-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span id="from-morse-btn-text">From Morse</span>
+            </button>
+        </div>
+        
+        <div class="result">
+            <h3 id="result-label">Result:</h3>
+            <p id="output"></p>
+            <button onclick="copyResult()" class="copy-btn">
+                <i class="fas fa-copy"></i>
+                <span id="copy-btn-text">Copy</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Copied to clipboard!</div>
+
+    <script src="Js/C4.js"></script>
+</body>
+</html>

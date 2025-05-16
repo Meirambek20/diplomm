@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн Кілт Генераторы</title>
+    <style>
+        body {
+             background: #6762d9;
+            background: linear-gradient(90deg, rgba(103, 98, 217, 1) 0%, rgba(92, 92, 250, 1) 40%, rgba(0, 212, 255, 1) 100%);
+           /* background-image: url('/Computer-screen-code-glitch-animation-gif-background-free.gif'); */
+            background-size: 100% 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f9ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px); /*  Артқы фонды бұлыңғыр етеді */
+            border-radius: 20px;
+            padding: 2rem;
+            /* background: white; */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        #okey-length {
+            color: #ffffff;
+        }
+        .container h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .generate-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+            word-break: break-word;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #003d80;
+        }
+
+        footer {
+            margin-top: auto;
+            background-color: #0056b3;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Онлайн Кілт Генераторы</h1>
+    </header>
+
+    <div class="container">
+        <h2>Кілт генерациялау</h2>
+
+        <div class="form-group">
+            <label for="key-length" id="okey-length">Кілт ұзындығы (бит):</label>
+            <select id="key-length">
+                <option value="128">128 бит</option>
+                <option value="256">256 бит</option>
+                <option value="512">512 бит</option>
+                <option value="1024">1024 бит</option>
+            </select>
+        </div>
+
+        <button class="generate-btn" onclick="generateKey()">Кілтті Генерациялау</button>
+
+        <div id="output" class="output" style="display: none;">
+            <p id="generated-key"></p>
+            <button class="copy-btn" onclick="copyKey()">Көшіріп алу</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Онлайн Кілт Генераторы. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <script>
+        function generateKey() {
+            const length = parseInt(document.getElementById('key-length').value);
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = '';
+
+            for (let i = 0; i < length / 8; i++) {
+                key += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            document.getElementById('generated-key').textContent = key;
+            document.getElementById('output').style.display = 'block';
+        }
+
+        function copyKey() {
+            const key = document.getElementById('generated-key').textContent;
+            navigator.clipboard.writeText(key).then(() => {
+                alert('Кілт көшірілді!');
+            }).catch(() => {
+                alert('Көшіре алмады. Қолмен көшіріп көріңіз.');
+            });
+        }
+    </script>
+</body>
+</html>

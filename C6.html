@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atbash Cipher</title>
+    <link rel="stylesheet" href="Css/C6.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-selector">
+                <button class="language-btn" onclick="changeLanguage('kk')" id="kk-btn">Қазақша</button>
+                <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">Русский</button>
+                <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">English</button>
+            </div>
+            <h1 id="title">Atbash Cipher</h1>
+        </div>
+        
+        <div class="input-group">
+            <label for="input-text" id="input-label">Мәтін:</label>
+            <textarea id="input-text" spellcheck="false" placeholder="Мәтінді енгізіңіз..."></textarea>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="encrypt()" id="encrypt-btn" class="action-btn encrypt-btn">
+                <i class="fas fa-lock"></i>
+                <span>Шифрлеу</span>
+            </button>
+            <button onclick="decrypt()" id="decrypt-btn" class="action-btn decrypt-btn">
+                <i class="fas fa-unlock"></i>
+                <span>Дешифрлеу</span>
+            </button>
+        </div>
+        
+        <div class="result">
+            <h3 id="result-label">Нәтиже:</h3>
+            <p id="output"></p>
+            <button onclick="copyResult()" class="copy-btn">
+                <i class="fas fa-copy"></i>
+                <span id="copy-btn-text">Көшіру</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Көшірілді!</div>
+
+    <script src="Js/C6.js"></script>
+</body>
+</html>

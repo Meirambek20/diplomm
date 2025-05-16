@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trithemius Cipher | Трисемус шифры | Трисемус шифры</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Css/C5.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-selector">
+                <button class="language-btn" onclick="changeLanguage('kk')" id="kk-btn">Қазақша</button>
+                <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">Русский</button>
+                <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">English</button>
+            </div>
+            <h1 id="title">Trithemius Cipher</h1>
+        </div>
+        
+        <div class="input-group">
+            <label for="input-text" id="input-label">Text:</label>
+            <textarea id="input-text" spellcheck="false"></textarea>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="encrypt()" id="encrypt-btn" class="action-btn encrypt-btn">
+                <i class="fas fa-lock"></i>
+                <span id="encrypt-btn-text">Encrypt</span>
+            </button>
+            <button onclick="decrypt()" id="decrypt-btn" class="action-btn decrypt-btn">
+                <i class="fas fa-unlock"></i>
+                <span id="decrypt-btn-text">Decrypt</span>
+            </button>
+        </div>
+        
+        <div class="result">
+            <h3 id="result-label">Result:</h3>
+            <p id="output"></p>
+            <button onclick="copyResult()" class="copy-btn">
+                <i class="fas fa-copy"></i>
+                <span id="copy-btn-text">Copy</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Copied to clipboard!</div>
+
+    <script src="Js/C5.js"></script>
+</body>
+</html>

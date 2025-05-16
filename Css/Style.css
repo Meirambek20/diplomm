@@ -1,0 +1,201 @@
+/* Жалпы стиль */
+body {
+    background-image: url('/Photo/fon.jpg');
+    background-size: 100% 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f9ff;
+    color: #333;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+#toTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#toTopBtn:hover {
+    background-color: #3730a3;
+    transform: scale(1.1);
+}
+/* Жаңа layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.card {
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card-price {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.card-button {
+  background-color: #008CBA;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #005f7a;
+}
+.header {
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    background-color: #0056b3;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+}
+
+.lbar, .rbar {
+    width: 20%;
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.content {
+    flex: 1;
+}
+
+.section {
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: #0056b3;
+}
+
+.compiler-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.compiler-button:hover {
+    background-color: #0056b3;
+}
+
+.info-box {
+    background-color: #f0f8ff;
+    border-left: 6px solid #007bff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+/* Footer */
+.footer {
+    background-color: #0056b3;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #80caff;
+}
+
+/* Адаптивтілік */
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+    }
+    .lbar, .rbar {
+        width: 100%;
+    }
+}
