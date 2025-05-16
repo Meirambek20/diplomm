@@ -2,6 +2,7 @@
 <html lang="kk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Шифрлау әдістері</title>
   <style>
     /* ---- БАЗАЛЫҚ СТИЛЬ ---- */
@@ -90,15 +91,53 @@
   .back-button:hover {
     background-color: #4338ca; /* hover түсі */
   }
-    /* Адаптивтілік */
-/* @media (max-width: 900px) {
-    .main {
-        flex-direction: column;
-    }
-    .lbar, .rbar {
-        width: 100%;
-    }
-} */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .card {
+    padding: 16px;
+    min-height: 140px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .modal-card {
+    padding: 24px;
+    width: 95%;
+    max-height: 80vh;
+  }
+
+  .modal-card h2 {
+    font-size: 20px;
+  }
+
+  .modal-card p {
+    font-size: 14px;
+  }
+
+  .close-btn {
+    font-size: 24px;
+    top: 8px;
+    right: 12px;
+  }
+
+  .back-button {
+    top: 12px;
+    left: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
   </style>
 </head>
 <body>
